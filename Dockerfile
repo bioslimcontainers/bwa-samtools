@@ -13,13 +13,13 @@ RUN make install DESTDIR=/dest
 
 FROM alpine:3.9 AS download-bwa
 RUN apk add curl libarchive-tools
-RUN curl -OL https://downloads.sourceforge.net/project/bio-bwa/bwa-0.7.15.tar.bz2
-RUN bsdtar xf bwa-0.7.15.tar.bz2
+RUN curl -OL https://downloads.sourceforge.net/project/bio-bwa/bwa-0.7.17.tar.bz2
+RUN bsdtar xf bwa-0.7.17.tar.bz2
 
 FROM alpine:3.9 AS buildenv-bwa
 RUN apk add gcc make libc-dev zlib-dev patch
-COPY --from=download-bwa /bwa-0.7.15 /bwa-0.7.15
-WORKDIR /bwa-0.7.15
+COPY --from=download-bwa /bwa-0.7.17 /bwa-0.7.17
+WORKDIR /bwa-0.7.17
 COPY bwa-patch.patch /
 RUN patch -p1 < /bwa-patch.patch
 RUN make -j4
