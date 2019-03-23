@@ -1,12 +1,12 @@
 FROM alpine:3.9 AS download-samtools
 RUN apk add curl libarchive-tools
-RUN curl -OL https://github.com/samtools/samtools/releases/download/1.3.1/samtools-1.3.1.tar.bz2
-RUN bsdtar xf samtools-1.3.1.tar.bz2
+RUN curl -OL https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2
+RUN bsdtar xf samtools-1.9.tar.bz2
 
 FROM alpine:3.9 AS buildenv-samtools
 RUN apk add gcc make libc-dev ncurses-dev bzip2-dev zlib-dev curl-dev curl xz-dev
-COPY --from=download-samtools /samtools-1.3.1 /samtools-1.3.1
-WORKDIR /samtools-1.3.1
+COPY --from=download-samtools /samtools-1.9 /samtools-1.9
+WORKDIR /samtools-1.9
 RUN ./configure --prefix=/usr
 RUN make -j4
 RUN make install DESTDIR=/dest
