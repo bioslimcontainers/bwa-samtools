@@ -30,3 +30,5 @@ FROM alpine:3.9
 RUN apk add ncurses libbz2 zlib libcurl xz-libs
 COPY --from=buildenv-samtools /dest /
 COPY --from=buildenv-bwa /dest /
+ADD run.sh /
+ENTRYPOINT [ "/bin/bash", "/run.sh" ]
