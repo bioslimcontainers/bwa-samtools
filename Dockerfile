@@ -27,7 +27,7 @@ RUN install -D -t /dest//usr/bin bwa
 RUN install -D -t /dest//usr/share/man/man1 bwa.1
 
 FROM alpine:3.9
-RUN apk add ncurses libbz2 zlib libcurl xz-libs
+RUN apk add ncurses libbz2 zlib libcurl xz-libs bash
 COPY --from=buildenv-samtools /dest /
 COPY --from=buildenv-bwa /dest /
 ADD run.sh /
